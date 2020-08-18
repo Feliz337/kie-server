@@ -69,7 +69,7 @@ router.post('/enable', asyncHandler(async (req, res) => {
 
     const query = {'deviceToken': deviceToken};
 
-    await Device.findOneAndUpdate(query, {deviceToken: deviceToken, enabled: true}, {upsert: false});
+    await Device.findOneAndUpdate(query, {deviceToken: deviceToken, enabled: true}, {upsert: true});
     res.status(200).send('OK')
 }))
 
@@ -83,7 +83,7 @@ router.post('/disable', asyncHandler(async (req, res) => {
 
     const query = {'deviceToken': deviceToken};
 
-    await Device.findOneAndUpdate(query, {deviceToken: deviceToken, enabled: false}, {upsert: false});
+    await Device.findOneAndUpdate(query, {deviceToken: deviceToken, enabled: false}, {upsert: true});
     res.status(200).send('OK')
 }));
 
