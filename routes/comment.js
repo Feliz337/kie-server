@@ -83,8 +83,11 @@ router.post('/disable', asyncHandler(async (req, res) => {
 
     const query = {'deviceToken': deviceToken};
 
-    await Device.findOneAndUpdate(query, {deviceToken: deviceToken, enabled: false}, {upsert: true});
-    res.status(200).send('OK')
+    Device.findOneAndUpdate(query, {deviceToken: deviceToken, enabled: false}, {upsert: true}, (err, doc) => {
+        if (err) res.status(400).send('ERR');
+        res.status(200).send('OK')
+    });
+
 }));
 
 module.exports = router;
