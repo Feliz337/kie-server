@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 const comment = require('./routes/comment');
 
-mongoose.connect(env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(env.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
     .then(() => {
         console.log("Connected to MongoDB");})
 

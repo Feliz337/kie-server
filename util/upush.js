@@ -10,7 +10,7 @@ const generateSign = (postBody) => {
     return md5(payload);
 };
 
-const generateBody = (content) => {
+const generateBody = (content, devices) => {
     const title = 'kie收到消息: '+content
     const payload = {
         "display_type": "notification",
@@ -28,7 +28,8 @@ const generateBody = (content) => {
     const body = {
         appkey: env.UPUSH_APPKEY,
         timestamp: Date.now(),
-        type: 'broadcast',
+        type: "listcast",
+        device_tokens: devices,
         mipush: true,
         mi_activity: "cc.foxa.kie.NotifyClickActivity",
         description: "kie消息: " + content,
