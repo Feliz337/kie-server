@@ -69,8 +69,12 @@ router.post('/enable', asyncHandler(async (req, res) => {
 
     const query = {'deviceToken': deviceToken};
 
-    await Device.findOneAndUpdate(query, {deviceToken: deviceToken, enabled: true}, {upsert: true});
-    res.status(200).send('OK')
+    Device.findOneAndUpdate(query, {deviceToken: deviceToken, enabled: true}, {upsert: true}, (err, doc) => {
+        if (err) res.status(400).send('ERR');
+        console.log(`[${sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss')}] Device Registered deviceToken=${deviceToken}`);
+
+        res.status(200).send('OK')
+    });
 }))
 
 router.post('/disable', asyncHandler(async (req, res) => {
@@ -85,6 +89,8 @@ router.post('/disable', asyncHandler(async (req, res) => {
 
     Device.findOneAndUpdate(query, {deviceToken: deviceToken, enabled: false}, {upsert: true}, (err, doc) => {
         if (err) res.status(400).send('ERR');
+        console.log(`[${sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss')}] Device Unregistered deviceToken=${deviceToken}`);
+
         res.status(200).send('OK')
     });
 
